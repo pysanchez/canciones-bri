@@ -1,0 +1,314 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 500px));
+    column-gap: 24px;
+    justify-content: center;
+    align-content: start;
+    margin: 0;
+    padding: 24px;
+    color: #4a2630;
+    font-family: "Montserrat", Arial, sans-serif;
+    background:
+        radial-gradient(circle, rgba(255, 255, 255, 0.7) 1px, transparent 1.5px) 0 0 / 46px 46px,
+        radial-gradient(circle, rgba(255, 255, 255, 0.45) 1px, transparent 1.5px) 23px 23px / 64px 64px,
+        #e98ba8;
+}
+
+body::before {
+    position: fixed;
+    z-index: 0;
+    top: 8%;
+    left: 8%;
+    color: rgba(255, 255, 255, 0.72);
+    content: "♡";
+    font-size: 18px;
+    pointer-events: none;
+    text-shadow:
+        12vw 14vh 0 rgba(255, 255, 255, 0.58),
+        28vw 4vh 0 rgba(255, 255, 255, 0.72),
+        43vw 23vh 0 rgba(255, 255, 255, 0.55),
+        62vw 10vh 0 rgba(255, 255, 255, 0.68),
+        79vw 28vh 0 rgba(255, 255, 255, 0.58),
+        91vw 8vh 0 rgba(255, 255, 255, 0.72),
+        19vw 52vh 0 rgba(255, 255, 255, 0.65),
+        37vw 68vh 0 rgba(255, 255, 255, 0.55),
+        57vw 48vh 0 rgba(255, 255, 255, 0.72),
+        74vw 75vh 0 rgba(255, 255, 255, 0.58),
+        89vw 57vh 0 rgba(255, 255, 255, 0.68),
+        7vw 82vh 0 rgba(255, 255, 255, 0.55);
+}
+
+body > * {
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    display: table;
+    grid-column: 1 / -1;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0.8em 1em;
+    color: #ffffff;
+    text-align: center;
+    font-size: clamp(0.5rem, 2vw, 1.8rem);
+    line-height: 1.25;
+    white-space: nowrap;
+    background: linear-gradient(135deg, #4a2630, #8b435b);
+    border: 2px solid rgba(255, 255, 255, 0.75);
+    border-radius: 0.8em;
+    box-shadow: 0 12px 30px rgba(74, 38, 48, 0.2);
+    animation: flotar 4s ease-in-out infinite;
+}
+
+.texto {
+    align-self: start;
+    width: 100%;
+    max-width: 500px;
+    margin: 24px 0;
+    padding: 24px;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    background-color: #ffffff;
+    border: 1px solid #f0cbd4;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(74, 38, 48, 0.08);
+    animation: aparecer 0.8s ease-out 0.15s both;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.texto:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(74, 38, 48, 0.16);
+}
+
+.texto p {
+    margin: 0;
+}
+
+.canciones {
+    align-self: start;
+    width: 100%;
+    max-width: 500px;
+    margin: 24px 0;
+    animation: entradaCanciones 0.8s ease-out 0.2s both;
+    transition: filter 0.2s ease;
+}
+
+.canciones:hover {
+    filter: drop-shadow(0 8px 14px rgba(74, 38, 48, 0.12));
+}
+
+.canciones details {
+    margin-bottom: 16px;
+    overflow: hidden;
+    background-color: #ffffff;
+    border: 1px solid #f0cbd4;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(74, 38, 48, 0.1);
+    animation: aparecer 0.7s ease-out both;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.canciones details:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.canciones details:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.canciones details:hover {
+    border-color: #d98ba1;
+    box-shadow: 0 9px 22px rgba(74, 38, 48, 0.16);
+}
+
+.canciones details[open] {
+    animation: cancionActiva 0.55s ease-out both;
+}
+
+.canciones details:not([open]) summary:hover {
+    color: #ffffff;
+    background-color: #8b435b;
+    letter-spacing: 0.03em;
+}
+
+.canciones summary {
+    position: relative;
+    padding: 18px 52px;
+    color: #4a2630;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+    transition: color 0.25s ease, background-color 0.25s ease, letter-spacing 0.25s ease;
+}
+
+.canciones summary::-webkit-details-marker {
+    display: none;
+}
+
+.canciones summary::after {
+    content: "+";
+    position: absolute;
+    right: 20px;
+    font-size: 1.3rem;
+    transition: transform 0.2s ease;
+}
+
+.canciones details[open] summary {
+    color: #ffffff;
+    background-color: #6b3548;
+    animation: summaryDesplegado 0.35s ease-out both;
+}
+
+.canciones details[open] summary::after {
+    transform: rotate(45deg);
+}
+
+.canciones summary:focus-visible {
+    outline: 3px solid #a34f68;
+    outline-offset: -3px;
+}
+
+.canciones details p {
+    margin: 0;
+    padding: 20px;
+    font-size: 1rem;
+    line-height: 1.8;
+    animation: aparecer 0.3s ease-out;
+}
+
+.canciones details:not([open]) > p {
+    display: none;
+}
+
+.canciones details[open] > p {
+    display: block;
+}
+
+audio {
+    display: block;
+    width: calc(100% - 32px);
+    max-width: 420px;
+    margin: 16px auto 20px;
+    color-scheme: light;
+    accent-color: #8b435b;
+    background-color: transparent;
+    animation: aparecer 0.45s ease-out both;
+    transition: filter 0.25s ease, transform 0.25s ease;
+}
+
+audio:hover,
+audio:focus-visible {
+    filter: drop-shadow(0 3px 7px rgba(107, 53, 72, 0.28));
+    transform: scale(1.015);
+}
+
+audio::-webkit-media-controls-panel {
+    background-color: transparent;
+}
+
+audio::-webkit-media-controls-enclosure {
+    background-color: transparent;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes flotar {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+@keyframes entradaCanciones {
+    from {
+        opacity: 0;
+        transform: translateX(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes summaryDesplegado {
+    from {
+        opacity: 0.7;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cancionActiva {
+    0% {
+        border-color: #f0cbd4;
+        box-shadow: 0 4px 12px rgba(74, 38, 48, 0.1);
+    }
+
+    55% {
+        border-color: #c96e89;
+        box-shadow: 0 0 0 4px rgba(201, 110, 137, 0.16), 0 10px 24px rgba(74, 38, 48, 0.16);
+    }
+
+    100% {
+        border-color: #d98ba1;
+        box-shadow: 0 7px 18px rgba(74, 38, 48, 0.13);
+    }
+}
+
+@media (max-width: 1072px) {
+    body {
+        grid-template-columns: minmax(0, 500px);
+        padding: 16px;
+    }
+
+    h1 {
+        grid-column: 1;
+        font-size: clamp(0.5rem, 2vw, 0.75rem);
+    }
+
+    .texto {
+        padding: 18px;
+        font-size: 1rem;
+    }
+
+    .canciones summary {
+        padding: 16px 46px;
+    }
+
+    .canciones details p {
+        padding: 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
